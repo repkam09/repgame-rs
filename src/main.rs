@@ -16,10 +16,16 @@ mod state;
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
 
+    // Get a reference to the application root directory
     let app_root = application_root_dir()?;
 
+    // Get a reference to the assets folder
     let resources = app_root.join("assets");
+
+    // Get a reference to the display configuration file
     let display_config = app_root.join("config/display_config.ron");
+
+    // Get a reference to the input configuration file
     let key_bindings_path = app_root.join("config/input.ron");
 
     let game_data = GameDataBuilder::default()
@@ -38,7 +44,10 @@ fn main() -> amethyst::Result<()> {
                 .with_plugin(RenderFlat2D::default()),
         )?;
 
+    // Pass the game its resoiufces, game data, and initial state
     let mut game = Application::new(resources, state::MyState, game_data)?;
+
+    // Run - which really just starts the event loop?
     game.run();
 
     Ok(())

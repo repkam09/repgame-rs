@@ -55,23 +55,39 @@ impl SimpleState for MyState {
         event: StateEvent,
     ) -> SimpleTrans {
         if let StateEvent::Window(event) = &event {
-            // Check if the window should be closed
+            // Check if the window should be closed, either by OS request or the Escape key being pressed
             if is_close_requested(&event) || is_key_down(&event, VirtualKeyCode::Escape) {
-                return Trans::Quit;
+                return Trans::Quit; // State transitions
+            }
+
+            if is_key_down(&event, VirtualKeyCode::W) {
+                info!("Pressed the W key");
+                return Trans::None;
+            }
+
+            if is_key_down(&event, VirtualKeyCode::A) {
+                info!("Pressed the A key");
+                return Trans::None;
+            }
+
+            if is_key_down(&event, VirtualKeyCode::S) {
+                info!("Pressed the S key");
+                return Trans::None;
+            }
+
+            if is_key_down(&event, VirtualKeyCode::D) {
+                info!("Pressed the D key");
+                return Trans::None;
             }
 
             // Listen to any key events
             if let Some(event) = get_key(&event) {
                 info!("handling key event: {:?}", event);
             }
-
-            // If you're looking for a more sophisticated event handling solution,
-            // including key bindings and gamepad support, please have a look at
-            // https://book.amethyst.rs/stable/pong-tutorial/pong-tutorial-03.html#capturing-user-input
         }
 
         // Keep going
-        Trans::None
+        return Trans::None;
     }
 }
 
@@ -161,14 +177,14 @@ pub fn create_ui_example(world: &mut World) {
     // this creates the simple gray background UI element.
     let ui_background = world
         .create_entity()
-        .with(UiImage::SolidColor([0.6, 0.1, 0.2, 1.0]))
+        .with(UiImage::SolidColor([0.0, 0.0, 0.0, 1.0]))
         .with(UiTransform::new(
             "".to_string(),
             Anchor::TopLeft,
             Anchor::TopLeft,
-            30.0,
-            -30.,
-            0.,
+            0.0,
+            0.0,
+            0.0,
             250.,
             50.,
         ))
@@ -191,16 +207,16 @@ pub fn create_ui_example(world: &mut World) {
             "".to_string(),
             Anchor::TopLeft,
             Anchor::TopLeft,
-            40.0,
-            -40.,
-            1.,
-            200.,
-            50.,
+            0.0,
+            0.0,
+            1.0,
+            300.0,
+            50.0,
         ))
         .with(UiText::new(
             font,
-            "Hello, Amethyst UI!".to_string(),
-            [1., 1., 1., 1.],
+            "Overlay Text String".to_string(),
+            [0.0, 1.0, 1.0, 1.0],
             30.,
             LineMode::Single,
             Anchor::TopLeft,

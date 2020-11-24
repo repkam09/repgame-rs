@@ -1,4 +1,5 @@
 <img src="repo/splash.png" alt="Amethyst 2D starter template" />
+
 ## Quickstart
 
 - Clone the repository

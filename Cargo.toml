@@ -1,0 +1,15 @@
+[package]
+name = "repgame-rs"
+version = "0.0.1"
+authors = ["Hilmar Wiegand <me@hwgnd.de>", "Amethyst Foundation <contact@amethyst.rs>", "Mark Repka <mark@repkam09.com>"]
+edition = "2018"
+
+[dependencies]
+amethyst = {version = "0.15.2", features = ["no-slow-safety-checks"]}
+log = { version = "0.4.8", features = ["serde"] }
+
+[features]
+default = ["metal"]
+empty = ["amethyst/empty"]
+metal = ["amethyst/metal"]
+vulkan = ["amethyst/vulkan"]
